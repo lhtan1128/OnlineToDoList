@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/AngularCode.js"></script>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<style type="text/css">
+    .container {
+        margin: 0px auto;
+        width: 800px;
+    }
+
+    .color-red {
+        background-color: red;
+    }
+</style>
+
+<div ng-app="myApp">
+    <div ng-controller="myCtrl" ng-init="GetToDoList()" class="divList">
+        <div class="container">
+            <h2>Todo List</h2>
+            <table class="table table-bordered table-hover">
+                <tr ng-repeat="task in todoList" >
+                    <td class="col-sm-7" ng-class="{'color-red': task.Status == 'Completed'}">{{task.Content}}</td>
+                    <td class="col-sm-2" ng-class="{'color-red': task.Status == 'Completed'}">{{task.CreatedDateTime}}</td>
+                    <td class="col-sm-3" ng-class="{'color-red': task.Status == 'Completed'}">
+                        <input ng-if="task.Status != 'Completed'" type="button" class="btn btn-success" value="Complete" ng-click="CompleteTask(task)" />
+                        <input type="button" class="btn btn-danger" value="Delete" ng-click="DeleteTask(task)" />
+                    </td>
+                </tr>
+            </table>
+
+            <input type="text" class="form-control" id="task" ng-keydown="$event.keyCode === 13 && InsertTask()" ng-model="taskContent" placeholder="Add your task here">
+        </div>
+        
+    </div>
+</div>  
